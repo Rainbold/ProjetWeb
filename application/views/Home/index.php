@@ -6,10 +6,10 @@
 						Understand everything.</p>
 					</div>
 					<div class="col-md-4">
-						<form class="form-signin" role="form">
-					        <input type="text" class="form-control" placeholder="Pseudonym" required>
-					        <input type="email" class="form-control" placeholder="Email address" required>
-					        <input type="password" class="form-control" placeholder="Password" required>
+						<form class="form-signin" role="form" action="http://localhost/ProjetWeb/index.php/home" method="post">
+					        <input name="pseudo" type="text" class="form-control" placeholder="Pseudonym" required>
+					        <input name="email" type="text" class="form-control" placeholder="Email address" required>
+					        <input name="password" type="password" class="form-control" placeholder="Password" required>
 					        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
       					</form>
 					</div>

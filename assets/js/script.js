@@ -1,6 +1,10 @@
 $('.QuestTable table').hide();
 $('#QuestLatest table').show();
 
+$('.overlay').click(function(){
+	$(this).hide();
+});
+
 // The current table choice : latest, day, week or month
 var popChoice = 'PopLatest';
 
@@ -29,5 +33,3 @@ $('#QuestPop span').click(function(){
 		}
 	}
 });
-
-
