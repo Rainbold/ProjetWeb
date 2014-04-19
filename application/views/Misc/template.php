@@ -1,4 +1,5 @@
 <?php
+	
 	$this->load->helper(array('url', 'assets'));
 	$this->load->view('Misc/header');
 	foreach($views as $page)

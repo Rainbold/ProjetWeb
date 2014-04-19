@@ -28,13 +28,21 @@
 			        		<li><a href="<?php echo site_url(); ?>">Home</a><span class="glyphicon glyphicon-home"></span></li>
 			        		<li><a href="#">Questions<span></span></a><span class="glyphicon glyphicon-question-sign"></span></li>
 			        		<li><a href="#">Ask<span></span></a><span class="glyphicon glyphicon-pencil"></span></li>
-			        		<li class="li-btn"><button type="button" id="btnToLogin" class="btn btn-success">Sign in</button></li>
+			        		<?php if( $this->session->userdata('logged_in') ) { ?>
+			        			<li class="li-btn">
+			        				<form class="form-inline nav navbar-nav navbar-right" role="form" action="<?php echo site_url(); ?>" method="post">
+					        			<button type="submit" name="submitForm" value="formSignOut" id="btnToLogout" class="btn btn-danger">Sign out</button>
+      								</form>
+      							</li>
+			        		<?php } else { ?>
+			        			<li class="li-btn"><button type="button" id="btnToLogin" class="btn btn-success">Sign in</button></li>
+			      			<?php } ?>
 			      		</ul>
-			      		<form class="form-inline nav navbar-nav navbar-right aa-login" role="form" action="<?php echo site_url(); ?>" method="post">
-					        <input name="pseudo" type="text" class="form-control" placeholder="Pseudonym" required>
+			      		<form hidden class="form-inline nav navbar-nav navbar-right aa-login" role="form" action="<?php echo site_url(); ?>" method="post">
+					        <input name="email" type="email" class="form-control" placeholder="Email address" required>
 					        <input name="password" type="password" class="form-control" placeholder="Password" required>
-					        <button class="btn btn-success" type="submit">Sign in</button>
-					        <button class="btn btn-danger" id="btnToMenu" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+					        <button class="btn btn-success" type="submit" name="submitForm" value="formSignIn">Sign in</button>
+					        <button class="btn btn-danger" id="btnToMenu" type="button"><span class="glyphicon glyphicon-share-alt"></span></button>
       					</form>
 			    	</div>
 				</div>

@@ -4,6 +4,7 @@ class User_model extends CI_Model
 {
 	protected $table = 'aa_users';
 
+	// Add a user to the database
 	public function user_add($pseudo, $pass, $email)
 	{
 		$this->db->set('pseudo', $pseudo);
@@ -20,6 +21,7 @@ class User_model extends CI_Model
 		return $this->db->insert($this->table);
 	}
 
+	// Check if the submitted pseudo already exists
 	public function user_if_pseudo_exists($pseudo)
 	{
 		$sql = "SELECT id FROM ".$this->table." WHERE UPPER(pseudo) = UPPER(?)";
@@ -28,11 +30,36 @@ class User_model extends CI_Model
 		return $query->num_rows();
 	}
 
+	// Check if the submitted email already exists
 	public function user_if_email_exists($email)
 	{
 		$sql = "SELECT id FROM ".$this->table." WHERE email = ?";
 		$data = array($email);
 		$query = $this->db->query($sql, $data);
 		return $query->num_rows();
+	}
+
+	// Check if the guest can log in
+	public function user_get_id($email, $password)
+	{
+		$sql = "SELECT id FROM ".$this->table." WHERE email = ? AND password = ? LIMIT 1";
+		$data = array($email, md5($password));
+		$query = $this->db->query($sql, $data);
+		if($query->row())
+			return $query->row()->id;
+		else
+			return 0;
+	}
+
+	// Check if the guest can log in
+	public function user_get_info($id)
+	{
+		$sql = "SELECT * FROM ".$this->table." WHERE id = ? LIMIT 1";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+		if($query->row())
+			return $query->row();
+		else
+			return 0;
 	}
 }

@@ -10,7 +10,7 @@
 					        <input name="pseudo" type="text" class="form-control" placeholder="Pseudonym" required>
 					        <input name="email" type="email" class="form-control" placeholder="Email address" required>
 					        <input name="password" type="password" class="form-control" placeholder="Password" required>
-					        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+					        <button class="btn btn-lg btn-primary btn-block" name="submitForm" value="formSignUp" type="submit">Sign up</button>
       					</form>
 					</div>
 				</div>

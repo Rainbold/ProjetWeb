@@ -40,7 +40,7 @@ header>nav.navbar input
 
 header>nav.navbar div.container-fluid
 {
-	width: 80%;
+	width: 90%;
 }
 
 header a.navbar-brand
@@ -67,7 +67,7 @@ nav.navbar-default ul.navbar-nav>li:hover
 	transition: background-color 0.3s;
 }
 
-nav.navbar-default ul.navbar-nav>li.li-btn>button
+nav.navbar-default ul.navbar-nav>li.li-btn button
 {
 	margin-top: 15px;
 	margin-left: 20px;
