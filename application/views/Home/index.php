@@ -6,7 +6,7 @@
 						Understand everything.</p>
 					</div>
 					<div class="col-md-4">
-						<form class="form-signin" role="form" action="http://localhost/ProjetWeb/index.php/home" method="post">
+						<form class="form-signin" role="form" action="<?php echo site_url(); ?>" method="post">
 					        <input name="pseudo" type="text" class="form-control" placeholder="Pseudonym" required>
 					        <input name="email" type="email" class="form-control" placeholder="Email address" required>
 					        <input name="password" type="password" class="form-control" placeholder="Password" required>

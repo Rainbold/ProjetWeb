@@ -32,7 +32,8 @@ header>nav.navbar
 	height: 100px;
 }
 
-header>nav.navbar button
+header>nav.navbar button,
+header>nav.navbar input
 {
 	margin-top: 30px;
 }
@@ -64,6 +65,19 @@ nav.navbar-default ul.navbar-nav>li:hover
 {
 	background-color: #4cd2da;
 	transition: background-color 0.3s;
+}
+
+nav.navbar-default ul.navbar-nav>li.li-btn>button
+{
+	margin-top: 15px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+nav.navbar-default ul.navbar-nav>li.li-btn,
+nav.navbar-default ul.navbar-nav>li.li-btn:hover
+{
+	background: none;
 }
 
 nav.navbar-default ul.navbar-nav>li>a
@@ -241,14 +255,14 @@ div.overlay
 
 div.messageBox
 {
+	position: relative;
 	text-align: center;
 	display: block;
 	margin: auto;
 	width: 300px;
-	height: 100px;
 	z-index: 101;
 	background-color: #fff;
-	margin-top: 300px;
+	margin-top: 10%;
 	border-radius: 10px;
 }
 
@@ -260,7 +274,7 @@ div.messageBox h4
 
 div.messageBox p
 {
-	padding: 10px;
+	padding: 5px;
 }
 
 footer>nav.navbar

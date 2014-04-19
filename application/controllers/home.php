@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
@@ -11,10 +11,12 @@ class Home extends CI_Controller
 
 	public function index()
 	{
-		$data['views'] = array('Home/index');
+		$data['views'] = array(array('Home/index', ''));
 
     	$this->load->helper('form');
 		$this->load->library('form_validation');
+
+		$this->load->model('user_model', 'userManager');
 
 		$this->form_validation->set_rules('pseudo', '"Pseudonym"', 'trim|required|min_length[2]|max_length[52]|alpha_dash|encode_php_tags|xss_clean');
 		$this->form_validation->set_rules('email', '"Email"', 'trim|required|min_length[8]|max_length[52]|encode_php_tags|xss_clean');
@@ -22,12 +24,14 @@ class Home extends CI_Controller
 
 		if( $this->form_validation->run() )
 		{
-			array_unshift($data['views'], 'overlay');
+			$result = $this->userManager->user_add('pseudo', 'mdp', 'test@test.fr');
+			array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => 'Thank you for signing up !' )));
 		}
 		else
 		{
+			array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Titre', 'msg' => form_error('pseudo').'<br/>'.form_error('email').'<br/>'.form_error('password') )));
 		}
 
-		$this->load->view('template', $data);
+		$this->load->view('Misc/template', $data);
 	}
 }

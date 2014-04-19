@@ -1,12 +1,26 @@
 $('.QuestTable table').hide();
 $('#QuestLatest table').show();
 
+$('.aa-login').hide();
+
+$('button#btnToLogin').click(function(){
+	$('.aa-menu').hide();
+	$('.aa-login').fadeIn();
+});
+$('button#btnToMenu').click(function(){
+	$('.aa-menu').fadeIn();
+	$('.aa-login').hide();
+});
+//$('.aa-menu').hide();
+
 $('.overlay').click(function(){
 	$(this).hide();
 });
 $('.messageBox').click(function(){
 	$(this).hide();
 });
+
+
 
 // The current table choice : latest, day, week or month
 var popChoice = 'PopLatest';

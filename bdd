@@ -1,0 +1,19 @@
+Users
+	id
+	pseudo
+	email
+	password
+	color
+
+Ask
+	id
+	id_quest
+	title
+	text
+	date
+	author_id
+
+Votes
+	id
+	id_question
+	id_voting_usr

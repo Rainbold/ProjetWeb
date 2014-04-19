@@ -1,6 +1,6 @@
 		<div class="overlay">
 			<div class="messageBox">	
-				<h4>Message</h4>
-				<p>Un petit message très très cool</p>
+				<h4><?php echo $title; ?></h4>
+				<p><?php echo $msg; ?></p>
 			</div>
 		</div>
