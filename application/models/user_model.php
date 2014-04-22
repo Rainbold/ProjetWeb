@@ -13,7 +13,7 @@ class User_model extends CI_Model
 
 		$code = "aaaaaa";
 		$hexa = "0123456789abcdef";
-		for($i=0; $i<6; $i++)
+		for( $i=0; $i<6; $i++ )
 			$code[$i] = $hexa[rand(0, 15)];
 
 		$this->db->set('color', $code);
@@ -45,7 +45,7 @@ class User_model extends CI_Model
 		$sql = "SELECT id FROM ".$this->table." WHERE email = ? AND password = ? LIMIT 1";
 		$data = array($email, md5($password));
 		$query = $this->db->query($sql, $data);
-		if($query->row())
+		if( $query->row() )
 			return $query->row()->id;
 		else
 			return 0;
@@ -57,7 +57,7 @@ class User_model extends CI_Model
 		$sql = "SELECT * FROM ".$this->table." WHERE id = ? LIMIT 1";
 		$data = array($id);
 		$query = $this->db->query($sql, $data);
-		if($query->row())
+		if( $query->row() )
 			return $query->row();
 		else
 			return 0;

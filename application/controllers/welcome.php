@@ -5,7 +5,7 @@ class Welcome extends CI_Controller
 	/*
 	 * The homepage's class
 	 * Manages the authentication and the registration
-	 * Shows the recent and hot questions
+	 * Shows the most recent and popular questions
 	 */
 
 	// Var used to pass datas to the views
@@ -20,7 +20,7 @@ class Welcome extends CI_Controller
 	// Homepage's method 
 	public function index()
 	{
-		$data['views'] = array(array('Home/index', ''));
+		$data['views'] = array();
 
     	$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -28,6 +28,7 @@ class Welcome extends CI_Controller
 
 		// Loads the model for the aa_users table
 		$this->load->model('user_model', 'userManager');
+		$this->load->model('ask_model', 'askManager');
 
 		$formSubmit = $this->input->post('submitForm');
 
@@ -113,6 +114,14 @@ class Welcome extends CI_Controller
 				array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => form_error('pseudo').'<br/>'.form_error('email').'<br/>'.form_error('password') )));
 			}	
 		}
+
+		$data_home = array(); 
+		$data_home['quest_latest'] = $this->askManager->ask_get_latest_questions();
+		$data_home['quest_pop_day'] = $this->askManager->ask_get_popular_questions(3600*24);
+		$data_home['quest_pop_week'] = $this->askManager->ask_get_popular_questions(3600*24*7);
+		$data_home['quest_pop_month'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
+
+		array_unshift($data['views'], array('Home/index', $data_home));
 
 		$this->load->view('Misc/template', $data);
 	}

@@ -42,12 +42,14 @@
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<tr>
-									<td class="votes">0<br/>Votes</td>
-									<td class="ans">0<br/>Answers</td>
-									<td class="views">7<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
+								<?php foreach($quest_latest as $quest) { ?>
+									<tr>
+										<td class="votes">0<br/>Votes</td>
+										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
+										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
+										<td><?php echo $quest->title; ?></td>
+									</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
@@ -61,18 +63,14 @@
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<tr>
-									<td class="votes">0<br/>Votes</td>
-									<td class="ans">0<br/>Answers</td>
-									<td class="views">7<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
-								<tr>
-									<td class="votes">5<br/>Votes</td>
-									<td class="ans">10<br/>Answers</td>
-									<td class="views">17<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
+								<?php foreach($quest_pop_day as $quest) { ?>
+									<tr>
+										<td class="votes">0<br/>Votes</td>
+										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
+										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
+										<td><?php echo $quest->title; ?></td>
+									</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
@@ -86,24 +84,14 @@
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<tr>
-									<td class="votes">0<br/>Votes</td>
-									<td class="ans">0<br/>Answers</td>
-									<td class="views">7<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
-								<tr>
-									<td class="votes">5<br/>Votes</td>
-									<td class="ans">10<br/>Answers</td>
-									<td class="views">17<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
-								<tr>
-									<td class="votes">9<br/>Votes</td>
-									<td class="ans">20<br/>Answers</td>
-									<td class="views">37<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
+								<?php foreach($quest_pop_week as $quest) { ?>
+									<tr>
+										<td class="votes">0<br/>Votes</td>
+										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
+										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
+										<td><?php echo $quest->title; ?></td>
+									</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
@@ -117,30 +105,14 @@
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<tr>
-									<td class="votes">0<br/>Votes</td>
-									<td class="ans">0<br/>Answers</td>
-									<td class="views">7<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
-								<tr>
-									<td class="votes">5<br/>Votes</td>
-									<td class="ans">10<br/>Answers</td>
-									<td class="views">17<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
-								<tr>
-									<td class="votes">9<br/>Votes</td>
-									<td class="ans">20<br/>Answers</td>
-									<td class="views">37<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
-								<tr>
-									<td class="votes">30<br/>Votes</td>
-									<td class="ans">20<br/>Answers</td>
-									<td class="views">67<br/>Views</td>
-									<td>To count unique values for duplicates in excel and represent them in another column</td>
-								</tr>
+								<?php foreach($quest_pop_month as $quest) { ?>
+									<tr>
+										<td class="votes">0<br/>Votes</td>
+										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
+										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
+										<td><?php echo $quest->title; ?></td>
+									</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
