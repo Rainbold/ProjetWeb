@@ -232,10 +232,20 @@ section.QuestTable
 	background-color: #fff;
 }
 
+section.QuestTable ul.nav
+{
+	margin-top: 50px;
+}
+
 section.QuestTable table
 {
 	margin-top: 50px;
 	margin-bottom: 50px;
+}
+
+section.QuestTable ul.pagination
+{
+	margin-bottom: -30px;
 }
 
 section.QuestTable td.votes {color:#3498db;}

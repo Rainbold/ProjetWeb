@@ -12,20 +12,33 @@ class Ask_model extends CI_Model
 		return( $a->nb_views < $b->nb_views ) ? -1 : 1;
 	}
 
+	public function ask_get_nb_questions()
+	{
+		$sql = "SELECT COUNT(*) AS nb_quest
+				FROM ".$this->table_ask."
+				WHERE id_quest = -1";
+		$query = $this->db->query($sql);
+		if( $query->row() != NULL )
+			return $query->row()->nb_quest;
+		else
+			return 0;
+	}
+
 
 	// Returns an array containing the most recent questions
-	public function ask_get_latest_questions($nb = 10)
+	public function ask_get_latest_questions($nb = 10, $offset = 0)
 	{
-		$sql = "SELECT ask.id, ask.title, COUNT(views.id_ask) AS nb_views 
-				FROM ".$this->table_ask." ask, ".$this->table_views." views 
-				WHERE ask.id_quest = -1 AND ask.id = views.id_ask 
-				GROUP BY views.id_ask
-				ORDER BY date DESC LIMIT ?";
-		$data = array($nb);
+		$sql = "SELECT ask.id, ask.title 
+				FROM ".$this->table_ask." ask 
+				WHERE ask.id_quest = -1
+				ORDER BY date DESC LIMIT ? OFFSET ?";
+		$data = array($nb, intval($offset));
 		$query = $this->db->query($sql, $data);
 		$res = $query->result();
-		for( $i=0; $i<count($res); $i++ )
+		for( $i=0; $i<count($res); $i++ ) {
 			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
+			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+		}
 		if( $query->result() )
 			return $query->result();
 		else
@@ -33,15 +46,15 @@ class Ask_model extends CI_Model
 	}
 
 	// Returns an array containing the most popular questions during a given period
-	public function ask_get_popular_questions($range = 0, $nb = 10)
+	public function ask_get_popular_questions($range = 0, $nb = 10, $offset = 0, $sort='views')
 	{
 		$sql = "SELECT ask.id, ask.title, COUNT(views.id_ask) AS nb_views 
 				FROM ".$this->table_ask." ask, ".$this->table_views." views 
 				WHERE ask.date >= UNIX_TIMESTAMP()-?
 				AND ask.id_quest = -1
 				GROUP BY ask.id
-				LIMIT ?";
-		$data = array($range, $nb);
+				LIMIT ? OFFSET ?";
+		$data = array($range, $nb, $offset);
 		$query = $this->db->query($sql, $data);
 		$res = $query->result();
 		for( $i=0; $i<count($res); $i++ ) {
@@ -49,12 +62,39 @@ class Ask_model extends CI_Model
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
 		}
 
-		// The $res array is sorted
-		usort($res, function($a, $b)
+		switch($sort)
 		{
-			if($a->nb_views == $b->nb_views){ return 0 ; }
-			return ($a->nb_views < $b->nb_views) ? 1 : -1;
-		});
+			case 'views':
+				usort($res, function($a, $b)
+				{
+					if($a->nb_views == $b->nb_views){
+						if($a->nb_ans == $b->nb_ans){ return 0; }
+						return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
+					}
+					return ($a->nb_views < $b->nb_views) ? 1 : -1;
+				});
+				break;
+			case 'answers':
+				usort($res, function($a, $b)
+				{
+					if($a->nb_ans == $b->nb_ans){ 
+						if($a->nb_views == $b->nb_views){ return 0 ; }
+						return ($a->nb_views < $b->nb_views) ? 1 : -1;
+					}
+					return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
+				});
+				break;
+			case 'votes':
+				/*usort($res, function($a, $b)
+				{
+					if($a->nb_views == $b->nb_views){ return 0 ; }
+					return ($a->nb_views < $b->nb_views) ? 1 : -1;
+				});*/
+				break;
+			default:
+				break;
+
+		}
 
 		if( $res )
 			return $res;

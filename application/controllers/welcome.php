@@ -20,7 +20,7 @@ class Welcome extends CI_Controller
 	// Homepage's method 
 	public function index()
 	{
-		$data['views'] = array();
+		$this->data['views'] = array();
 
     	$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -42,7 +42,7 @@ class Welcome extends CI_Controller
 			// If the user is already logged in...
 			if( $this->session->userdata('logged_in') )
 			{
-				array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'You are already logged in !' )));
+				array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'You are already logged in !' )));
 			}
 			else
 			{
@@ -64,17 +64,17 @@ class Welcome extends CI_Controller
 						$this->session->set_userdata('pseudo', $user->pseudo);
 						$this->session->set_userdata('email', $user->email);
 						$this->session->set_userdata('color', $user->color);
-						array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => $id )));
+						array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => $id )));
 					}
 					else
 					{
-						array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'Wrong email address or password' )));
+						array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'Wrong email address or password' )));
 					}
 				}
 				// If errors happened, they are displayed
 				elseif(form_error('password') || form_error('email'))
 				{
-					array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => form_error('pseudo').'<br/>'.form_error('email').'<br/>'.form_error('password') )));
+					array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => form_error('pseudo').'<br/>'.form_error('email').'<br/>'.form_error('password') )));
 				}
 			}
 		}
@@ -94,24 +94,24 @@ class Welcome extends CI_Controller
 				// If the pseudo is already registered in the database...
 				if($this->userManager->user_if_pseudo_exists($pseudo))
 				{
-					array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'This pseudo is already taken.' )));
+					array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'This pseudo is already taken.' )));
 				}
 				// If the email address is already registered in the database...
 				else if($this->userManager->user_if_email_exists($email))
 				{
-					array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'This email address already exists in our database.' )));
+					array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => 'This email address already exists in our database.' )));
 				}
 				// If everything's okay, the user is added to the database
 				else
 				{
 					$result = $this->userManager->user_add($pseudo, $password, $email);
-					array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => 'Thank you for signing up !' )));
+					array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => 'Thank you for signing up !' )));
 				}
 			}
 			// If errors happened, they are displayed
 			elseif(form_error('pseudo') || form_error('password') || form_error('email'))
 			{
-				array_unshift($data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => form_error('pseudo').'<br/>'.form_error('email').'<br/>'.form_error('password') )));
+				array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Error', 'msg' => form_error('pseudo').'<br/>'.form_error('email').'<br/>'.form_error('password') )));
 			}	
 		}
 
@@ -121,8 +121,8 @@ class Welcome extends CI_Controller
 		$data_home['quest_pop_week'] = $this->askManager->ask_get_popular_questions(3600*24*7);
 		$data_home['quest_pop_month'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
 
-		array_unshift($data['views'], array('Home/index', $data_home));
+		array_unshift($this->data['views'], array('Home/index', $data_home));
 
-		$this->load->view('Misc/template', $data);
+		$this->load->view('Misc/template', $this->data);
 	}
 }

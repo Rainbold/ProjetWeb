@@ -42,7 +42,9 @@
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<?php foreach($quest_latest as $quest) { ?>
+								<?php
+									if(isset($quest_latest)) 
+									foreach($quest_latest as $quest) { ?>
 									<tr>
 										<td class="votes">0<br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
