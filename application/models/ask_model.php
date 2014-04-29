@@ -160,4 +160,45 @@ class Ask_model extends CI_Model
 		else
 			return 0;
 	}
+
+	// Gets the questions asked by the user with $id as id
+	public function ask_get_user_questions($id)
+	{
+		$sql = "SELECT *
+				FROM ".$this->table_ask."
+				WHERE id_quest = -1
+				AND author_id = ?
+				ORDER BY date DESC";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+		$res = $query->result();
+		for( $i=0; $i<count($res); $i++ ) {
+			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
+			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+		}
+		if( $query->result() != NULL )
+			return $query->result();
+		else
+			return 0;
+	}
+
+	// Gets the unanswered questions
+	public function ask_get_unanswered_questions()
+	{
+		$sql = "SELECT *
+				FROM ".$this->table_ask."
+				WHERE id NOT IN 
+				(SELECT id_quest FROM `aa_ask` WHERE id_quest != -1) 
+				AND id_quest = -1";
+		$query = $this->db->query($sql);
+		$res = $query->result();
+		for( $i=0; $i<count($res); $i++ ) {
+			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
+			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+		}
+		if( $query->result() != NULL )
+			return $query->result();
+		else
+			return 0;
+	}
 } 

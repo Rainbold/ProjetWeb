@@ -1,5 +1,7 @@
-$('.QuestTableJS table').hide();
+$('.QuestPopTableJS table').hide();
+$('.QuestUserTableJS table').hide();
 $('#QuestLatest table').show();
+$('#QuestUnanswered table').show();
 
 $('.aa-login').hide();
 
@@ -24,29 +26,50 @@ $('.messageBox').click(function(){
 
 // The current table choice : latest, day, week or month
 var popChoice = 'PopLatest';
+var userChoice = 'UserUnanswered';
+
+$('#QuestUser span').click(function(){
+	$('#QuestUser .foc').removeClass('foc');
+	$(this).addClass('foc');
+
+	if(userChoice != $(this).attr('id'))
+	{
+		userChoice = $(this).attr('id');
+		$('.QuestUserTableJS table').hide();
+		switch( userChoice )
+		{
+			case 'UserUnanswered':
+				$('#QuestUnanswered table').fadeIn();
+				break;
+			case 'UserQuest':
+				$('#QuestUserPers table').fadeIn();
+				break;
+		}
+	}
+});
 
 $('#QuestPop span').click(function(){
-	$('.foc').removeClass('foc');
+	$('#QuestPop .foc').removeClass('foc');
 	$(this).addClass('foc');
 
 	if(popChoice != $(this).attr('id'))
 	{
 		popChoice = $(this).attr('id');
-		$('.QuestTableJS table').hide();
+		$('.QuestPopTableJS table').hide();
 		switch( popChoice )
 		{
 			case 'PopLatest':
 				$('#QuestLatest table').fadeIn();
-				break
+				break;
 			case 'PopDay':
 				$('#QuestDay table').fadeIn();
-				break
+				break;
 			case 'PopWeek':
 				$('#QuestWeek table').fadeIn();
-				break
+				break;
 			case 'PopMonth':
 				$('#QuestMonth table').fadeIn();
-				break
+				break;
 		}
 	}
 });

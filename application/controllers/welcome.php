@@ -61,6 +61,7 @@ class Welcome extends CI_Controller
 					{
 						$user = $this->userManager->user_get_info($id);
 						$this->session->set_userdata('logged_in', TRUE);
+						$this->session->set_userdata('id', $id);
 						$this->session->set_userdata('pseudo', $user->pseudo);
 						$this->session->set_userdata('email', $user->email);
 						$this->session->set_userdata('color', $user->color);
@@ -117,9 +118,13 @@ class Welcome extends CI_Controller
 
 		$data_home = array(); 
 		$data_home['quest_latest'] = $this->askManager->ask_get_latest_questions();
-		$data_home['quest_pop_day'] = $this->askManager->ask_get_popular_questions(3600*24);
 		$data_home['quest_pop_week'] = $this->askManager->ask_get_popular_questions(3600*24*7);
 		$data_home['quest_pop_month'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
+		if($this->session->userdata('logged_in')) {
+			$data_home['user'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
+			$data_home['user_quest'] = $this->askManager->ask_get_user_questions($this->session->userdata('id'));
+			$data_home['user_unanswered'] = $this->askManager->ask_get_unanswered_questions();
+		}
 
 		array_unshift($this->data['views'], array('Home/index', $data_home));
 

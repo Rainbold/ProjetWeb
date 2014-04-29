@@ -190,7 +190,25 @@ section#SignUp p
 	border-top-right-radius: 0;
 }
 
-section#QuestPop
+.modal {display:block;}
+
+section#UserInfo
+{
+	padding: 30px;
+	font-size: 1.7em;
+}
+
+section#UserInfo .padding
+{
+	padding: 15px;
+}
+
+section#UserInfo p
+{
+	font-size: 0.7em;
+}
+
+section#QuestPop, section#QuestUser
 {
 	height: 100px;
 	margin: 0;
@@ -203,7 +221,19 @@ section#QuestPop
 	font-size: 1.3em;
 }
 
-section#QuestPop span
+section#UserInfo span.UserInfoPseudo
+{
+	margin-top: 30px;
+	//display: inline-block;
+	color: #fff;
+	border-radius: 10px;
+	padding: 10px;
+	height: 40px;
+	text-shadow: 0px 0px 1px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 1px rgba(0,0,0,0.75);
+}
+
+section#QuestPop span, section#QuestUser span
 {
 	margin-top: 30px;
 	display: inline-block;
@@ -214,14 +244,14 @@ section#QuestPop span
 	transition: background-color 0.3s;
 }
 
-section#QuestPop span:hover
+section#QuestPop span:hover, section#QuestUser span:hover
 {
 	background-color: #28bcc5;
 	cursor: pointer;
 	transition: background-color 0.3s;
 }
 
-section#QuestPop span.foc
+section#QuestPop span.foc, section#QuestUser span.foc
 {
 	background-color: #28bcc5;
 }
