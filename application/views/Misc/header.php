@@ -26,7 +26,7 @@
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      		<ul class="nav navbar-nav navbar-right aa-menu">
 			        		<li><a href="<?php echo site_url(); ?>">Home</a><span class="glyphicon glyphicon-home"></span></li>
-			        		<li><a href="<?php echo site_url(array('index.php', 'Ask', 'list_quest')); ?>">Questions<span></span></a><span class="glyphicon glyphicon-question-sign"></span></li>
+			        		<li><a href="<?php echo site_url(array('index.php', 'ask', 'list_quest')); ?>">Questions<span></span></a><span class="glyphicon glyphicon-question-sign"></span></li>
 			        		<li><a href="#">Ask<span></span></a><span class="glyphicon glyphicon-pencil"></span></li>
 			        		<?php if( $this->session->userdata('logged_in') ) { ?>
 			        			<li class="li-btn">

@@ -17,3 +17,9 @@ Votes
 	id
 	id_question
 	id_voting_usr
+
+Views
+	id
+	id_ask
+	ip
+	time

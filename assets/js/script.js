@@ -1,4 +1,4 @@
-$('.QuestTable table').hide();
+$('.QuestTableJS table').hide();
 $('#QuestLatest table').show();
 
 $('.aa-login').hide();
@@ -32,7 +32,7 @@ $('#QuestPop span').click(function(){
 	if(popChoice != $(this).attr('id'))
 	{
 		popChoice = $(this).attr('id');
-		$('.QuestTable table').hide();
+		$('.QuestTableJS table').hide();
 		switch( popChoice )
 		{
 			case 'PopLatest':

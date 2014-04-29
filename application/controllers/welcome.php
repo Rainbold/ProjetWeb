@@ -64,7 +64,7 @@ class Welcome extends CI_Controller
 						$this->session->set_userdata('pseudo', $user->pseudo);
 						$this->session->set_userdata('email', $user->email);
 						$this->session->set_userdata('color', $user->color);
-						array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => $id )));
+						array_unshift($this->data['views'], array('Misc/overlay', array( 'title' => 'Success', 'msg' => 'You are now logged in !' )));
 					}
 					else
 					{

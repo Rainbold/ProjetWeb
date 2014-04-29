@@ -130,4 +130,34 @@ class Ask_model extends CI_Model
 		else
 			return 0;
 	}
+
+	// Gets the info of the question with $id as id
+	public function ask_get_quest($id)
+	{
+		$sql = "SELECT *
+				FROM ".$this->table_ask."
+				WHERE id = ?
+				AND id_quest = -1
+				LIMIT 1";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+		if( $query->row() != NULL )
+			return $query->row();
+		else
+			return 0;
+	}
+
+	// Gets the answers for the question with $id as id
+	public function ask_get_answers($id)
+	{
+		$sql = "SELECT *
+				FROM ".$this->table_ask."
+				WHERE id_quest = ?";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+		if( $query->result() != NULL )
+			return $query->result();
+		else
+			return 0;
+	}
 } 

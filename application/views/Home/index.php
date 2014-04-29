@@ -36,14 +36,14 @@
 			</div>
 		</section>
 
-		<section class="QuestTable" id="QuestLatest">
+		<section class="QuestTable QuestTableJS" id="QuestLatest">
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
 								<?php
-									if(isset($quest_latest)) 
+									if(isset($quest_latest) && !empty($quest_latest)) 
 									foreach($quest_latest as $quest) { ?>
 									<tr>
 										<td class="votes">0<br/>Votes</td>
@@ -59,13 +59,15 @@
 			</div>
 		</section>
 
-		<section class="QuestTable" id="QuestDay">
+		<section class="QuestTable QuestTableJS" id="QuestDay">
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<?php foreach($quest_pop_day as $quest) { ?>
+								<?php 
+									if(isset($quest_pop_day) && !empty($quest_pop_day))
+									foreach($quest_pop_day as $quest) { ?>
 									<tr>
 										<td class="votes">0<br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
@@ -80,13 +82,15 @@
 			</div>
 		</section>
 
-		<section class="QuestTable" id="QuestWeek">
+		<section class="QuestTable QuestTableJS" id="QuestWeek">
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<?php foreach($quest_pop_week as $quest) { ?>
+								<?php  
+									if(isset($quest_pop_week) && !empty($quest_pop_week))
+									foreach($quest_pop_week as $quest) { ?>
 									<tr>
 										<td class="votes">0<br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
@@ -101,13 +105,15 @@
 			</div>
 		</section>
 
-		<section class="QuestTable" id="QuestMonth">
+		<section class="QuestTable QuestTableJS" id="QuestMonth">
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table">
 							<tbody>
-								<?php foreach($quest_pop_month as $quest) { ?>
+								<?php  
+									if(isset($quest_pop_month) && !empty($quest_pop_month))
+									foreach($quest_pop_month as $quest) { ?>
 									<tr>
 										<td class="votes">0<br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
