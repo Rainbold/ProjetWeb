@@ -19,6 +19,11 @@ class Ask extends CI_Controller
 
 	public function list_quest($cat = 'latest', $page = 1)
 	{
+		// If the user is not connected, then he is redirected to the main page
+		$this->load->helper('url');
+		if( !$this->session->userdata('logged_in') )
+			redirect(base_url());
+
 		// Loads the model for the aa_users table
 		// $this->load->model('user_model', 'userManager');
 		$this->load->model('ask_model', 'askManager');
@@ -55,6 +60,11 @@ class Ask extends CI_Controller
 
 	public function show($id = 1)
 	{
+		// If the user is not connected, then he is redirected to the main page
+		$this->load->helper('url');
+		if( !$this->session->userdata('logged_in') )
+			redirect(base_url());
+
 		$this->load->model('ask_model', 'askManager');
 		$this->load->model('user_model', 'userManager');
 
@@ -68,7 +78,10 @@ class Ask extends CI_Controller
 			{
 				foreach($data_show['answers'] as $answer)
 				{
-					array_push($data_show['answer_aux'], array('ans' => $answer, 'user' => $this->userManager->user_get_info($answer->author_id)));
+					$ans_ans = array();
+					$ans_ans['user'] = $this->userManager->user_get_info($answer->author_id);
+					$ans_ans['answers'] = $this->askManager->ask_get_answers($answer->id);
+					array_push($data_show['answer_aux'], array('ans' => $answer, 'user' => $this->userManager->user_get_info($answer->author_id), 'rep' => $ans_ans));
 				}
 			}
 		}

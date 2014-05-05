@@ -262,6 +262,18 @@ section.QuestTable
 	background-color: #fff;
 }
 
+section.QuestTable table a, div.QuestBody a
+{
+	color: #666;
+	transition: all 0.3s;
+}
+
+section.QuestTable table a:hover, div.QuestBody a:hover
+{
+	color: #28bcc5;
+	transition: all 0.3s;
+}
+
 section.QuestTable ul.nav
 {
 	margin-top: 50px;
@@ -337,8 +349,8 @@ footer>nav.navbar form
 
 div.QuestBody
 {
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border: 1px solid #ccc;
+	border-radius: 10px;
 	padding: 20px;
 	padding-bottom: 0px;
 	min-height: 140px;
@@ -378,12 +390,40 @@ p.arrowDown
 
 p.arrowUp:hover
 {
+	cursor: pointer;
 	color: #ffc600;
 	transition: all 0.3s;
 }
 
 p.arrowDown:hover
 {
+	cursor: pointer;
 	color: #00C0ff;
 	transition: all 0.3s;
 }
+
+div.panel-group 
+{
+	font-size: 0.8em;
+}
+
+div.panel-group a
+{
+	color: #ddd;
+	font-size: 0.8em;
+}
+
+div.panel
+{
+	background-color: #777;
+	color: #fff;
+}
+
+div.panel>div.panel-heading
+{
+	opacity: 0.75;
+	padding: 3px 10px;
+	background-color: #555;
+	color: #fff;
+}
+

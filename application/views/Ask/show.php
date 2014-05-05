@@ -11,6 +11,11 @@
 									<p>123</p>
 									&nbsp;<p class="glyphicon glyphicon-arrow-down arrowDown"></p>
 								</div>
+								<div class="text-center">
+									<a href=""><i class="glyphicon glyphicon-pencil"></i></a>
+									<a href=""><i class="glyphicon glyphicon-remove"></i></a>
+								</div>
+								<br/>
 							</div>
 							<div class="col-md-9">
 								<p>
@@ -28,11 +33,39 @@
 									<p>123</p>
 									&nbsp;<p class="glyphicon glyphicon-arrow-down arrowDown"></p>
 								</div>
+								<div class="text-center">
+									<a href=""><i class="glyphicon glyphicon-pencil"></i></a>
+									<a href=""><i class="glyphicon glyphicon-remove"></i></a>
+								</div>
+								<br/>
 							</div>
 							<div class="col-md-9">
 								<p>
 									<?php if(exists($answer)) echo nl2br($answer['ans']->text); ?>
 								</p>
+								<?php if(exists($answer['rep']['answers'])) { ?>
+								<br/><br/><br/><br/>
+
+								
+								<?php foreach ($answer['rep'] as $ans) { ?>
+								<div class="panel-group" id="accordion">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+													
+												</a>
+											</h4>
+										</div>
+										<div id="collapseOne" class="panel-collapse collapse in">
+											<div class="panel-body">
+												<?php echo $ans[0]; ?>
+											</div>
+										</div>
+									</div>
+								</div>
+								<?php } ?>
+								<?php } ?>
 							</div>
 							<div style="clear: both;"></div>
 						</div>

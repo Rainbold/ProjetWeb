@@ -46,7 +46,7 @@ class Ask_model extends CI_Model
 	}
 
 	// Returns an array containing the most popular questions during a given period
-	public function ask_get_popular_questions($range = 0, $nb = 10, $offset = 0, $sort='views')
+	public function ask_get_popular_questions($range = 0, $nb = 10, $offset = 0, $sort='')
 	{
 		$sql = "SELECT ask.id, ask.title, COUNT(views.id_ask) AS nb_views 
 				FROM ".$this->table_ask." ask, ".$this->table_views." views 
@@ -62,18 +62,9 @@ class Ask_model extends CI_Model
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
 		}
 
+
 		switch($sort)
 		{
-			case 'views':
-				usort($res, function($a, $b)
-				{
-					if($a->nb_views == $b->nb_views){
-						if($a->nb_ans == $b->nb_ans){ return 0; }
-						return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
-					}
-					return ($a->nb_views < $b->nb_views) ? 1 : -1;
-				});
-				break;
 			case 'answers':
 				usort($res, function($a, $b)
 				{
@@ -82,6 +73,16 @@ class Ask_model extends CI_Model
 						return ($a->nb_views < $b->nb_views) ? 1 : -1;
 					}
 					return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
+				});
+				break;
+			case 'views':
+				usort($res, function($a, $b)
+				{
+					if($a->nb_views == $b->nb_views){
+						if($a->nb_ans == $b->nb_ans){ return 0; }
+						return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
+					}
+					return ($a->nb_views < $b->nb_views) ? 1 : -1;
 				});
 				break;
 			case 'votes':
