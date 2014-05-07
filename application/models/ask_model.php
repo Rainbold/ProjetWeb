@@ -162,6 +162,40 @@ class Ask_model extends CI_Model
 			return 0;
 	}
 
+	// Gets the answers for the question with $id as id
+	public function ask_get_answer($id)
+	{
+		$sql = "SELECT *
+				FROM ".$this->table_ask."
+				WHERE id = ?";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+		if( $query->row() != NULL )
+			return $query->row();
+		else
+			return 0;
+	}
+
+	// Gets the answers for the question with $id as id
+	public function ask_get_top_level_id_quest($id)
+	{
+		$sql = "SELECT id_quest
+				FROM ".$this->table_ask."
+				WHERE id = ?";
+		$id_quest = $id;
+		$data = array();
+		while($id_quest != -1)
+		{
+			$data = array($id_quest);
+			$query = $this->db->query($sql, $data);
+			if( $query->row() == NULL )
+				return -1;
+			$id_quest = $query->row()->id_quest;
+		}
+		
+		return $data[0];
+	}
+
 	// Gets the questions asked by the user with $id as id
 	public function ask_get_user_questions($id)
 	{
@@ -201,5 +235,45 @@ class Ask_model extends CI_Model
 			return $query->result();
 		else
 			return 0;
+	}
+
+	// Add a new question/answer
+	public function ask_add($author_id, $answer, $title = '', $id_quest=-1)
+	{
+		$sql = "INSERT INTO ".$this->table_ask."(id_quest, title, text, date, author_id) VALUES(?, ?, ?, ?, ?)";
+		$data = array($id_quest, $title, $answer, time(), $author_id);
+		$query = $this->db->query($sql, $data);	
+	}
+
+	// Deletes the question/answer and its answers
+	public function ask_delete($id)
+	{
+		$ids = array($id);
+
+		$sql = "SELECT id
+				FROM ".$this->table_ask."
+				WHERE id_quest = ?";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+
+		while(!empty($data)) {
+			$data = array();
+			foreach($query->result() as $quest)
+			{
+				array_push($data, $quest->id);
+				array_push($ids, $quest->id);
+			}
+			if(empty($data))
+				break;
+			$clause = implode(',', array_fill(0, count($data), '?'));
+			$sql = "SELECT id
+					FROM ".$this->table_ask."
+					WHERE id_quest IN (".$clause.")";
+			$query = $this->db->query($sql, $data);
+		}
+
+		$clause = implode(',', array_fill(0, count($ids), '?'));
+		$sql = "DELETE FROM ".$this->table_ask." WHERE id IN (".$clause.")";
+		$query = $this->db->query($sql, $ids);
 	}
 } 

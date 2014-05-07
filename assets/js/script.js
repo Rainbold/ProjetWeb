@@ -2,6 +2,7 @@ $('.QuestPopTableJS table').hide();
 $('.QuestUserTableJS table').hide();
 $('#QuestLatest table').show();
 $('#QuestUnanswered table').show();
+$('button.formToggle').next('div').next('div').hide();
 
 $('.aa-login').hide();
 
@@ -22,7 +23,18 @@ $('.messageBox').click(function(){
 	$(this).hide();
 });
 
-
+$('button.formToggle').click(function() {
+	if($(this).data('toggle') == 'toggled')
+	{
+		$(this).next('div').next('div').fadeOut();
+		$(this).data('toggle', '');
+	}	
+	else
+	{
+		$(this).next('div').next('div').fadeIn();
+		$(this).data('toggle', 'toggled');
+	}
+});
 
 // The current table choice : latest, day, week or month
 var popChoice = 'PopLatest';

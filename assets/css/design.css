@@ -221,7 +221,7 @@ section#QuestPop, section#QuestUser
 	font-size: 1.3em;
 }
 
-section#UserInfo span.UserInfoPseudo
+span.UserInfoPseudo
 {
 	margin-top: 30px;
 	//display: inline-block;
@@ -374,37 +374,38 @@ div.arrows
 	margin-top: 5px;
 }
 
-p.arrowUp
+.arrowUp
 {
 	font-size: 1.3em;
-	color: #000;
+	//color: #000;
 	transition: all 0.3s;
 }
 
-p.arrowDown
+.arrowDown
 {
 	font-size: 1.3em;
-	color: #000;
+	//color: #000;
 	transition: all 0.3s;
 }
 
-p.arrowUp:hover
+.arrowUp:hover
 {
 	cursor: pointer;
 	color: #ffc600;
 	transition: all 0.3s;
 }
 
-p.arrowDown:hover
+.arrowDown:hover
 {
 	cursor: pointer;
 	color: #00C0ff;
 	transition: all 0.3s;
 }
 
+/*
 div.panel-group 
 {
-	font-size: 0.8em;
+	font-size: 0.5em;
 }
 
 div.panel-group a
@@ -418,12 +419,15 @@ div.panel
 	background-color: #777;
 	color: #fff;
 }
-
+*/
 div.panel>div.panel-heading
 {
-	opacity: 0.75;
 	padding: 3px 10px;
-	background-color: #555;
-	color: #fff;
 }
 
+textarea
+{
+	border-radius: 5px;
+	border: 1px solid #bbb;
+	width: 100%;
+}
