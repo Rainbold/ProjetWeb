@@ -2,19 +2,13 @@
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<div class="col-md-4">
-							Sitemap
+						<div class="col-md-6 text-left">
+							IT103 - Web Development Project
 						</div>
-						<div class="col-md-4">
-							Copyrights
-						</div>
-						<div class="col-md-4">
-							<form class="navbar-form navbar-left" role="search">
-						    	<div class="form-group">
-						    		<input type="text" class="form-control" placeholder="Search">
-						    	</div>
-						    	<button type="submit" class="btn btn-default">Submit</button>
-							</form>
+						<div class="col-md-6 text-right">
+							<h3>Authors</h3>
+							Maxime Peterlin<br/>
+							Gabriel Vermeulen
 						</div>
 					</div>
 				</div>

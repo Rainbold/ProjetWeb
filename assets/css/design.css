@@ -332,14 +332,19 @@ div.messageBox p
 footer>nav.navbar
 {
 	color: #fff;
-	line-height: 100px;
 	height: 100px;
 	margin: 0;
+	line-height: 20px;
 	border-radius: 0px;
 	border: none;
 	background-color: #363636;
 	padding: 0;
-	font-size: 1.3em;
+	font-size: 1em;
+}
+
+footer div.text-left
+{
+	line-height: 100px;
 }
 
 footer>nav.navbar form
