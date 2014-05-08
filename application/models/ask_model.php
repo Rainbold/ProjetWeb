@@ -48,7 +48,7 @@ class Ask_model extends CI_Model
 	// Returns an array containing the most popular questions during a given period
 	public function ask_get_popular_questions($range = 0, $nb = 10, $offset = 0, $sort='')
 	{
-		$sql = "SELECT ask.id, ask.title, COUNT(views.id_ask) AS nb_views 
+		$sql = "SELECT ask.id, ask.title, COUNT(views.id_quest) AS nb_views 
 				FROM ".$this->table_ask." ask, ".$this->table_views." views 
 				WHERE ask.date >= UNIX_TIMESTAMP()-?
 				AND ask.id_quest = -1
@@ -123,7 +123,7 @@ class Ask_model extends CI_Model
 	{
 		$sql = "SELECT COUNT(*) AS nb_views
 				FROM ".$this->table_views."
-				WHERE id_ask = ?";
+				WHERE id_quest = ?";
 		$data = array($id);
 		$query = $this->db->query($sql, $data);
 		if( $query->row() != NULL )

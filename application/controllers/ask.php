@@ -74,32 +74,43 @@ class Ask extends CI_Controller
 			else
 			{
 				$this->load->model('ask_model', 'askManager');
-				$this->load->model('user_model', 'userManager');
+				$quest = $this->askManager->ask_get_answer($id);
 
-				$data_show = array();
-				$data_show['answer_aux'] = array();
-				$data_show['quest'] = $this->askManager->ask_get_quest($id);
-				$data_show['user'] = '';
-				if($data_show['quest']) {
-					$data_show['user'] = $this->userManager->user_get_info($data_show['quest']->author_id);
-					$data_show['answers'] = $this->askManager->ask_get_answers($id);
-					if($data_show['answers'])
-					{
-						foreach($data_show['answers'] as $answer)
+				// If the entry in the database does not exist the user is redirected to the main page
+				if(!$quest)
+					redirect(base_url());
+				else
+				{
+					$this->load->model('user_model', 'userManager');
+					$this->load->model('views_model', 'viewsManager');
+
+					$this->viewsManager->views_add($this->session->userdata('id'), $id);
+
+					$data_show = array();
+					$data_show['answer_aux'] = array();
+					$data_show['quest'] = $this->askManager->ask_get_quest($id);
+					$data_show['user'] = '';
+					if($data_show['quest']) {
+						$data_show['user'] = $this->userManager->user_get_info($data_show['quest']->author_id);
+						$data_show['answers'] = $this->askManager->ask_get_answers($id);
+						if($data_show['answers'])
 						{
-							$ans_ans = array( 'answers' => array(), 'users' => array() );
-							$ans_ans['answers'] = $this->askManager->ask_get_answers($answer->id);
-							if($ans_ans['answers'])
-								foreach ($ans_ans['answers'] as $key => $ans) {
-									$ans_ans['users'][$key] = $this->userManager->user_get_info($ans->author_id);
-								}
-							array_push($data_show['answer_aux'], array('ans' => $answer, 'user' => $this->userManager->user_get_info($answer->author_id), 'rep' => $ans_ans));
+							foreach($data_show['answers'] as $answer)
+							{
+								$ans_ans = array( 'answers' => array(), 'users' => array() );
+								$ans_ans['answers'] = $this->askManager->ask_get_answers($answer->id);
+								if($ans_ans['answers'])
+									foreach ($ans_ans['answers'] as $key => $ans) {
+										$ans_ans['users'][$key] = $this->userManager->user_get_info($ans->author_id);
+									}
+								array_push($data_show['answer_aux'], array('ans' => $answer, 'user' => $this->userManager->user_get_info($answer->author_id), 'rep' => $ans_ans));
+							}
 						}
 					}
+					$data_show['answers'] = $data_show['answer_aux'];
+					$this->data['views'] = array(array('Ask/show', $data_show));
+					$this->load->view('Misc/template', $this->data);
 				}
-				$data_show['answers'] = $data_show['answer_aux'];
-				$this->data['views'] = array(array('Ask/show', $data_show));
-				$this->load->view('Misc/template', $this->data);
 			}
 		}
 	}
