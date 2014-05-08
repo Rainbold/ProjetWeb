@@ -34,10 +34,13 @@ class Ask_model extends CI_Model
 				ORDER BY date DESC LIMIT ? OFFSET ?";
 		$data = array($nb, intval($offset));
 		$query = $this->db->query($sql, $data);
+		$this->load->model('votes_model', 'votesManager');
 		$res = $query->result();
 		for( $i=0; $i<count($res); $i++ ) {
 			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+			$val = $this->votesManager->votes_get_by_ask($res[$i]->id);
+			$res[$i]->nb_votes = ($val) ? $val:0;
 		}
 		if( $query->result() )
 			return $query->result();
@@ -57,9 +60,12 @@ class Ask_model extends CI_Model
 		$data = array($range, $nb, $offset);
 		$query = $this->db->query($sql, $data);
 		$res = $query->result();
+		$this->load->model('votes_model', 'votesManager');
 		for( $i=0; $i<count($res); $i++ ) {
 			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+			$val = $this->votesManager->votes_get_by_ask($res[$i]->id);
+			$res[$i]->nb_votes = ($val) ? $val:0;
 		}
 
 
@@ -69,7 +75,11 @@ class Ask_model extends CI_Model
 				usort($res, function($a, $b)
 				{
 					if($a->nb_ans == $b->nb_ans){ 
-						if($a->nb_views == $b->nb_views){ return 0 ; }
+						if($a->nb_views == $b->nb_views){
+							if($a->nb_votes == $b->nb_votes)
+								return 0;
+							return ($a->nb_votes < $b->nb_votes) ? 1 : -1;
+						}
 						return ($a->nb_views < $b->nb_views) ? 1 : -1;
 					}
 					return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
@@ -78,19 +88,30 @@ class Ask_model extends CI_Model
 			case 'views':
 				usort($res, function($a, $b)
 				{
-					if($a->nb_views == $b->nb_views){
-						if($a->nb_ans == $b->nb_ans){ return 0; }
+					if($a->nb_views == $b->nb_views){ 
+						if($a->nb_ans == $b->nb_ans){
+							if($a->nb_votes == $b->nb_votes)
+								return 0;
+							return ($a->nb_votes < $b->nb_votes) ? 1 : -1;
+						}
 						return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
 					}
 					return ($a->nb_views < $b->nb_views) ? 1 : -1;
 				});
 				break;
 			case 'votes':
-				/*usort($res, function($a, $b)
+				usort($res, function($a, $b)
 				{
-					if($a->nb_views == $b->nb_views){ return 0 ; }
-					return ($a->nb_views < $b->nb_views) ? 1 : -1;
-				});*/
+					if($a->nb_votes == $b->nb_votes){ 
+						if($a->nb_ans == $b->nb_ans){
+							if($a->nb_views == $b->nb_views)
+								return 0;
+							return ($a->nb_views < $b->nb_views) ? 1 : -1;
+						}
+						return ($a->nb_ans < $b->nb_ans) ? 1 : -1;
+					}
+					return ($a->nb_votes < $b->nb_votes) ? 1 : -1;
+				});
 				break;
 			default:
 				break;
@@ -156,8 +177,24 @@ class Ask_model extends CI_Model
 				WHERE id_quest = ?";
 		$data = array($id);
 		$query = $this->db->query($sql, $data);
-		if( $query->result() != NULL )
-			return $query->result();
+		$res = $query->result();
+		$this->load->model('votes_model', 'votesManager');
+		for( $i=0; $i<count($res); $i++ ) {
+			$val = $this->votesManager->votes_get_by_ask($res[$i]->id);
+			$res[$i]->nb_votes = ($val) ? $val:0;
+		}
+
+		// The answers are sorted by number of votes
+		usort($res, function($a, $b)
+		{
+			if($a->nb_votes == $b->nb_votes) {
+				return 0;
+			}
+			return ($a->nb_votes < $b->nb_votes) ? 1 : -1;
+		});
+
+		if( $res )
+			return $res;
 		else
 			return 0;
 	}

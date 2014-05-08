@@ -28,6 +28,7 @@ class Welcome extends CI_Controller
 
 		// Loads the model for the aa_users table
 		$this->load->model('user_model', 'userManager');
+		$this->load->model('votes_model', 'votesManager');
 		$this->load->model('ask_model', 'askManager');
 
 		$formSubmit = $this->input->post('submitForm');
@@ -117,13 +118,15 @@ class Welcome extends CI_Controller
 		}
 
 		$data_home = array(); 
-		$data_home['quest_latest'] = $this->askManager->ask_get_latest_questions();
-		$data_home['quest_pop_week'] = $this->askManager->ask_get_popular_questions(3600*24*7);
-		$data_home['quest_pop_month'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
 		if($this->session->userdata('logged_in')) {
+			$data_home['quest_latest'] = $this->askManager->ask_get_latest_questions();
+			$data_home['quest_pop_week'] = $this->askManager->ask_get_popular_questions(3600*24*7);
+			$data_home['quest_pop_month'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
 			$data_home['user'] = $this->askManager->ask_get_popular_questions(3600*24*cal_days_in_month(CAL_GREGORIAN, date('m', time()), date('Y', time())) );
 			$data_home['user_quest'] = $this->askManager->ask_get_user_questions($this->session->userdata('id'));
 			$data_home['user_unanswered'] = $this->askManager->ask_get_unanswered_questions();
+			$data_home['karma_received'] = $this->votesManager->votes_received($this->session->userdata('id'));
+			$data_home['karma_given'] = $this->votesManager->votes_given($this->session->userdata('id'));
 		}
 
 		array_unshift($this->data['views'], array('Home/index', $data_home));

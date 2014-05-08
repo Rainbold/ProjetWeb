@@ -30,7 +30,7 @@ class Ask extends CI_Controller
 			$this->load->model('ask_model', 'askManager');
 
 			$data_list = array(); 
-			$data_list['nb_quest_page'] = 2;
+			$data_list['nb_quest_page'] = 10;
 			$data_list['cat'] = $cat;
 
 			$nb_quest = $this->askManager->ask_get_nb_questions();
@@ -51,6 +51,9 @@ class Ask extends CI_Controller
 					break;
 				case 'answers':
 					$data_list['data'] = $this->askManager->ask_get_popular_questions(time(), $data_list['nb_quest_page'], $offset, 'answers');
+					break;
+				case 'votes':
+					$data_list['data'] = $this->askManager->ask_get_popular_questions(time(), $data_list['nb_quest_page'], $offset, 'votes');
 					break;
 				default:
 					break;
@@ -83,6 +86,7 @@ class Ask extends CI_Controller
 				{
 					$this->load->model('user_model', 'userManager');
 					$this->load->model('views_model', 'viewsManager');
+					$this->load->model('votes_model', 'votesManager');
 
 					$this->viewsManager->views_add($this->session->userdata('id'), $id);
 
@@ -90,20 +94,29 @@ class Ask extends CI_Controller
 					$data_show['answer_aux'] = array();
 					$data_show['quest'] = $this->askManager->ask_get_quest($id);
 					$data_show['user'] = '';
+					$data_show['votes'] = '';
 					if($data_show['quest']) {
 						$data_show['user'] = $this->userManager->user_get_info($data_show['quest']->author_id);
+						$data_show['votes'] = array('nb' => $this->votesManager->votes_get_by_ask($id), 'user_value' => $this->votesManager->votes_get_by_ask_user($id, $this->session->userdata('id')));
 						$data_show['answers'] = $this->askManager->ask_get_answers($id);
 						if($data_show['answers'])
 						{
 							foreach($data_show['answers'] as $answer)
 							{
-								$ans_ans = array( 'answers' => array(), 'users' => array() );
+								$ans_ans = array( 'answers' => array(), 'users' => array(), 'votes' => array() );
 								$ans_ans['answers'] = $this->askManager->ask_get_answers($answer->id);
 								if($ans_ans['answers'])
 									foreach ($ans_ans['answers'] as $key => $ans) {
 										$ans_ans['users'][$key] = $this->userManager->user_get_info($ans->author_id);
+										$ans_ans['votes'][$key] = array('nb' => $this->votesManager->votes_get_by_ask($ans->id), 
+										  				   				'user_value' => $this->votesManager->votes_get_by_ask_user($ans->id, $this->session->userdata('id')));
 									}
-								array_push($data_show['answer_aux'], array('ans' => $answer, 'user' => $this->userManager->user_get_info($answer->author_id), 'rep' => $ans_ans));
+								array_push($data_show['answer_aux'], 
+									array('ans' => $answer, 
+										  'user' => $this->userManager->user_get_info($answer->author_id), 
+										  'votes' => array('nb' => $this->votesManager->votes_get_by_ask($answer->id), 
+										  				   'user_value' => $this->votesManager->votes_get_by_ask_user($answer->id, $this->session->userdata('id'))), 
+										  'rep' => $ans_ans));
 							}
 						}
 					}
@@ -261,6 +274,49 @@ class Ask extends CI_Controller
 						redirect( site_url(array('index.php', 'ask', 'show', $this->askManager->ask_get_top_level_id_quest($id))) );
 					}
 
+				}
+			}
+		}
+	}
+
+	public function vote($id_ask, $value)
+	{
+		// If the user is not connected, then he is redirected to the main page
+		$this->load->helper('url');
+		if( !$this->session->userdata('logged_in') )
+			redirect(base_url());
+		else
+		{
+			$this->load->model('ask_model', 'askManager');
+			$id_ask = intval($id_ask);
+			$ask = $this->askManager->ask_get_answer($id_ask);
+
+			// If the entry in the database does not exist the user is redirected to the main page
+			if(!$ask)
+				redirect(base_url());
+			else
+			{
+				// If the current user is the question/answer's author he's redirected to the main page
+				if($ask->author_id == $this->session->userdata('id'))
+					redirect(base_url());
+				else
+				{
+					switch($value)
+					{
+						case 'u':
+							$value = 1;
+							break;
+						case 'd':
+							$value = -1;
+							break;
+						default :
+							redirect(base_url());
+							break;
+					}
+					$this->load->model('votes_model', 'votesManager');
+					$this->votesManager->votes_add($this->session->userdata('id'), $id_ask, $value);
+
+					redirect( site_url(array('index.php', 'ask', 'show', $this->askManager->ask_get_top_level_id_quest($id_ask))) );
 				}
 			}
 		}

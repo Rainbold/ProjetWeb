@@ -13,11 +13,19 @@ if ( ! function_exists('exists'))
 
 if ( ! function_exists('echo_var'))
 {
-	function echo_var($var)
+	function echo_var($var, $type='str')
 	{
 		if(exists($var))
 			echo $var;
 		else
-			echo '';
+			switch($type)
+			{
+				case 'str':
+					echo '';
+					break;
+				case 'num':
+					echo 0; 
+					break;
+			}	
 	}
 }

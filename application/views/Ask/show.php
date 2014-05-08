@@ -12,9 +12,20 @@
 								<br/>
 								<br/>
 								<div class="arrows">
-									<p class="glyphicon glyphicon-arrow-up arrowUp"></p>
-									<p>123</p>
-									&nbsp;<p class="glyphicon glyphicon-arrow-down arrowDown"></p>
+									<div class="row-fluid">
+										<?php if($this->session->userdata('id') != $quest->author_id) { ?>
+											<a href="<?php echo site_url(array('index.php', 'ask', 'vote', $quest->id, 'u')); ?>" <?php if($votes['user_value'] == 1) echo 'style="color:#ffc600;"'; ?> class="glyphicon glyphicon-arrow-up arrowUp"></a>
+										<?php } ?>
+									</div>
+									<div class="row-fluid">
+										<div style="clear: both;"></div>
+										<p>&nbsp;<?php echo_var($votes['nb'], 'num'); ?></p>
+									</div>
+									<div class="row-fluid">
+										<?php if($this->session->userdata('id') != $quest->author_id) { ?>
+											&nbsp;<a href="<?php echo site_url(array('index.php', 'ask', 'vote', $quest->id, 'd')); ?>" <?php if($votes['user_value'] == -1) echo 'style="color:#00C0ff;"'; ?> class="glyphicon glyphicon-arrow-down arrowDown"></a>
+										<?php } ?>
+									</div>
 								</div>
 								<div class="text-center">
 									<p><?php if(exists($quest)) echo date('d/m/Y H:i', $quest->date); ?></p>
@@ -59,9 +70,20 @@
 								<br/>
 								<br/>
 								<div class="arrows">
-									<p class="glyphicon glyphicon-arrow-up arrowUp"></p>
-									<p>123</p>
-									&nbsp;<p class="glyphicon glyphicon-arrow-down arrowDown"></p>
+									<div class="row-fluid">
+										<?php if($this->session->userdata('id') != $answer['ans']->author_id) { ?>
+											<a href="<?php echo site_url(array('index.php', 'ask', 'vote', $answer['ans']->id, 'u')); ?>" <?php if($answer['votes']['user_value'] == 1) echo 'style="color:#ffc600;"'; ?> class="glyphicon glyphicon-arrow-up arrowUp"></a>
+										<?php } ?>
+									</div>
+									<div class="row-fluid">
+										<div style="clear: both;"></div>
+										<p>&nbsp;<?php echo_var($answer['votes']['nb'], 'num'); ?></p>
+									</div>
+									<div class="row-fluid">
+										<?php if($this->session->userdata('id') != $answer['ans']->author_id) { ?>
+											&nbsp;<a href="<?php echo site_url(array('index.php', 'ask', 'vote', $answer['ans']->id, 'd')); ?>" <?php if($answer['votes']['user_value'] == -1) echo 'style="color:#00C0ff;"'; ?> class="glyphicon glyphicon-arrow-down arrowDown"></a>
+										<?php } ?>
+									</div>
 								</div>
 								<div class="text-center">
 									<p><?php echo date('d/m/Y H:i', $answer['ans']->date); ?></p>
@@ -83,6 +105,7 @@
 									<?php
 										foreach ($answer['rep']['answers'] as $key => $ans) {
 											$user = $answer['rep']['users'][$key];
+											$votes = $answer['rep']['votes'][$key];
 									?>
 										<div class="panel-group" id="accordion">
 											<div class="panel panel-default">
@@ -90,10 +113,12 @@
 													<div class="panel-title">
 														<div class="pull-left">
 															<a data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $ans->id; ?>">
-																5 - <?php echo $user->pseudo; ?>
+																<?php echo_var($votes['nb'], 'num'); ?> - <?php echo $user->pseudo; ?>
 															</a>
-															<i class="glyphicon glyphicon-arrow-up arrowUp" style="font-size:0.8em;"></i>
-															<i class="glyphicon glyphicon-arrow-down arrowDown" style="font-size:0.8em;"></i>
+															<?php if($this->session->userdata('id') != $ans->author_id) { ?>
+																<a href="<?php echo site_url(array('index.php', 'ask', 'vote', $ans->id, 'u')); ?>" <?php if($votes['user_value'] == 1) echo 'style="color:#ffc600;font-size:0.8em;"'; else echo 'style="font-size:0.8em;"'; ?> class="glyphicon glyphicon-arrow-up arrowUp" style="font-size:0.8em;"></a>
+																<a href="<?php echo site_url(array('index.php', 'ask', 'vote', $ans->id, 'd')); ?>" <?php if($votes['user_value'] == -1) echo 'style="color:#00C0ff;font-size:0.8em;"'; else echo 'style="font-size:0.8em;"';?> class="glyphicon glyphicon-arrow-down arrowDown" style="font-size:0.8em;"></a>
+															<?php } ?>
 														</div>
 														<div class="pull-right">
 															<?php echo date('d/m/Y H:i', $ans->date); ?>

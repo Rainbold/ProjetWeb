@@ -374,32 +374,35 @@ div.arrows
 	margin-top: 5px;
 }
 
+div.arrows p
+{
+	margin: 10px;
+}
+
 .arrowUp
 {
 	font-size: 1.3em;
-	//color: #000;
-	transition: all 0.3s;
+	transition: color 0.3s;
 }
 
 .arrowDown
 {
 	font-size: 1.3em;
-	//color: #000;
-	transition: all 0.3s;
+	transition: color 0.3s;
 }
 
-.arrowUp:hover
+.arrowUp:hover, div.arrows a.arrowUp:hover, div.panel-title a.arrowUp:hover
 {
 	cursor: pointer;
 	color: #ffc600;
-	transition: all 0.3s;
+	transition: color 0.3s;
 }
 
-.arrowDown:hover
+.arrowDown:hover, div.arrows a.arrowDown:hover, div.panel-title a.arrowDown:hover
 {
 	cursor: pointer;
 	color: #00C0ff;
-	transition: all 0.3s;
+	transition: color 0.3s;
 }
 
 /*

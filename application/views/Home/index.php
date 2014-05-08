@@ -29,11 +29,11 @@
 					</div>
 					<div class="col-md-2">
 						<span> Karma Received </span>
-						<p>12<i class="glyphicon glyphicon-arrow-up" style="color: #ffc600"></i> 7<i class="glyphicon glyphicon-arrow-down" style="color: #00C0ff"></i> &nbsp;&nbsp;&nbsp;5<i class="glyphicon glyphicon-heart" style="color: #ff3333; font-size:0.8em"></i></p>
+						<p><?php echo_var($karma_received['up'] ,'num'); ?><i class="glyphicon glyphicon-arrow-up" style="color: #ffc600"></i> <?php echo_var($karma_received['down'] ,'num'); ?><i class="glyphicon glyphicon-arrow-down" style="color: #00C0ff"></i> &nbsp;&nbsp;&nbsp;<?php echo_var($karma_received['up']+$karma_received['down'] ,'num'); ?><i class="glyphicon glyphicon-heart" style="color: #ff3333; font-size:0.8em"></i></p>
 					</div>
 					<div class="col-md-2">
 						<span> Karma Given </span>
-						<p>12<i class="glyphicon glyphicon-arrow-up" style="color: #ffc600"></i> 7<i class="glyphicon glyphicon-arrow-down" style="color: #00C0ff"></i> &nbsp;&nbsp;&nbsp;5<i class="glyphicon glyphicon-heart" style="color: #ff3333; font-size:0.8em"></i></p>
+						<p><?php echo_var($karma_given['up'] ,'num'); ?><i class="glyphicon glyphicon-arrow-up" style="color: #ffc600"></i> <?php echo_var($karma_given['down'] ,'num'); ?><i class="glyphicon glyphicon-arrow-down" style="color: #00C0ff"></i> &nbsp;&nbsp;&nbsp;<?php echo_var($karma_given['up']+$karma_given['down'] ,'num'); ?><i class="glyphicon glyphicon-heart" style="color: #ff3333; font-size:0.8em"></i></p>
 					 </div>
 				</div>
 			</div>

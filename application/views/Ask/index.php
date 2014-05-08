@@ -74,7 +74,7 @@
 									if(isset($data)) 
 									foreach($data as $quest) { ?>
 									<tr>
-										<td class="votes">0<br/>Votes</td>
+										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
 										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
 										<td><a href="<?php echo site_url(array('index.php', 'ask', 'show', $quest->id)); ?>"><?php echo $quest->title; ?></a></td>
