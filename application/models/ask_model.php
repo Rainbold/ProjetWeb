@@ -245,6 +245,14 @@ class Ask_model extends CI_Model
 		$query = $this->db->query($sql, $data);	
 	}
 
+	// Edit a previous question/answer
+	public function ask_edit($id, $answer, $title = '')
+	{
+		$sql = "UPDATE ".$this->table_ask." SET text = ?, title = ? WHERE id = ?";
+		$data = array($answer, $title, $id);
+		$query = $this->db->query($sql, $data);	
+	}
+
 	// Deletes the question/answer and its answers
 	public function ask_delete($id)
 	{

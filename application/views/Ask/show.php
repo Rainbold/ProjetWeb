@@ -19,7 +19,7 @@
 								<div class="text-center">
 									<p><?php if(exists($quest)) echo date('d/m/Y H:i', $quest->date); ?></p>
 									<?php if($this->session->userdata('id') == $quest->author_id) { ?>
-										<a href=""><i class="glyphicon glyphicon-pencil"></i></a>
+										<a href="<?php echo site_url(array('index.php', 'ask', 'edit_quest', $quest->id)); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
 										<a href="<?php echo site_url(array('index.php', 'ask', 'del', $quest->id)); ?>"><i class="glyphicon glyphicon-remove"></i></a>
 									<?php } ?>
 								</div>
@@ -66,7 +66,7 @@
 								<div class="text-center">
 									<p><?php echo date('d/m/Y H:i', $answer['ans']->date); ?></p>
 									<?php if($this->session->userdata('id') == $answer['ans']->author_id) { ?>
-										<a href=""><i class="glyphicon glyphicon-pencil"></i></a>
+										<a href="<?php echo site_url(array('index.php', 'ask', 'edit_quest', $answer['ans']->id)); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
 										<a href="<?php echo site_url(array('index.php', 'ask', 'del', $answer['ans']->id)); ?>"><i class="glyphicon glyphicon-remove"></i></a>
 									<?php } ?>
 								</div>
@@ -98,7 +98,7 @@
 														<div class="pull-right">
 															<?php echo date('d/m/Y H:i', $ans->date); ?>
 															<?php if($this->session->userdata('id') == $ans->author_id) { ?>
-																<a href=""><i class="glyphicon glyphicon-pencil"></i></a>
+																<a href="<?php echo site_url(array('index.php', 'ask', 'edit_quest', $ans->id)); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
 																<a href="<?php echo site_url(array('index.php', 'ask', 'del', $ans->id)); ?>"><i class="glyphicon glyphicon-remove"></i></a>
 															<?php } ?>
 														</div>
