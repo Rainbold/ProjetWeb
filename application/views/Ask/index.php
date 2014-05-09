@@ -71,7 +71,7 @@
 								<table class="table">
 									<tbody>
 								<?php
-									if(isset($data)) 
+									if(exists($data)) 
 									foreach($data as $quest) { ?>
 									<tr>
 										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
