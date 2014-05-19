@@ -35,69 +35,77 @@ Architecture
 	
 	Ci-dessous seront listés uniquement les fichiers ajoutés à l'architecture de départ de CodeIgniter (sauf s'ils ont été, au préalable, modifiés et seront alors suivis de [CI]).
 	
-	Root
+	/
 	|
-	|---application
+	+---application/
 	|   |
-	|   |---config
+	|   +---config/
 	|   |   |
-	|   |   |---config.php [CI]
+	|   |   +---config.php [CI]
 	|   |   |		Permet de modifier notamment l'URL de base du site (par défaut localhost), les suffixes des URL, la 
 	|   |   |		langue du site pour les erreurs, etc...
 	|   |   |
-	|   |   |---database.php [CI]
+	|   |   +---database.php [CI]
 	|   |   		Permet de modifier les variables propres à la connexion à la base de données
 	|   |   
-	|   |---controllers
+	|   +---controllers/
 	|   |   |
-	|   |   |---welcome.php
+	|   |   +---welcome.php
 	|   |   |		Controlleur utilisé pour l'affichage de la page d'accueil, l'authentification et la connexion des 
 	|   |   |		utilisateurs. Elle affiche le contenu seulement si l'utilisateur est loggé.
 	|   |   |
-	|   |   |---ask.php
+	|   |   +---ask.php
 	|   |   		Controlleur utilisé pour l'affichage, la création, la suppression et l'édition des questions et 
 	|   |   		réponses.
 	|   |   		Il sert également à afficher une liste de question en fonction de certains critères (cf. 
 	|   |   		Fonctionnalités - 8).
 	|   |
-	|   |---models 
+	|   +---models/ 
 	|   |   |
-	|   |   |---ask_model.php
+	|   |   +---ask_model.php
 	|   |   |		Modèle utilisé pour la gestion des questions et des réponses. 
 	|   |   |
-	|   |   |---user_model.php
+	|   |   +---user_model.php
 	|   |   |		Modèle utilisé pour la gestion des utilisateurs. 
 	|   |   |
-	|   |   |---views_model.php
+	|   |   +---views_model.php
 	|   |   |		Modèle utilisé pour la gestion des vues. 
 	|   |   |
-	|   |   |---votes_model.php
+	|   |   +---votes_model.php
 	|   |   		Modèle utilisé pour la gestion des votes. 
 	|   |
-	|   |---views
-	|   |   |
-	|   |   |---template.php
-	|   |   |		Vue de base contenant le header et le footer. Le contenu à afficher est dicté par le controlleur. 
-	|   |   |
-	|   |   |---Misc
-	|   |   |		Dossier contenant des pages réutilisables qui sont ensuite incluses. On a le header, le  
-	|   |   |		footer et l'overlay.
-	|   |   |
-	|   |   |---Home
-	|   |   |		Dossier contenant la vue propre à la page d'accueil. 
-	|   |   |
-	|   |   |---Ask
-	|   |   		Dossier contenant les vues dédiées à l'affichage des questions/réponses. 
+	|   +---views/
+	|       |
+	|       +---template.php
+	|       |		Vue de base contenant le header et le footer. Le contenu à afficher est dicté par le controlleur. 
+	|       |
+	|       +---Misc/
+	|       |		Dossier contenant des pages réutilisables qui sont ensuite incluses. On a le header, le  
+	|       |		footer et l'overlay.
+	|       |
+	|       +---Home/
+	|       |		Dossier contenant la vue propre à la page d'accueil. 
+	|       |
+	|       +---Ask/
+	|       		Dossier contenant les vues dédiées à l'affichage des questions/réponses. 
 	|      
 	|      
-	|---assets
-	|   |
-	|   |---css : dossier contenant les fichiers .css propres à Bootstrap, ainsi que la feuille de style du site.
-	|   |   |
-	|   |   |
-	|   |   |---design.css
-	|   |   		Feuille de style du site 
-	|   |   
-	|   |---js : dossier contenant les fichiers .js propres à Bootstrap, ainsi que .
-	|   |   	
+	+---assets/
+	    |
+	    +---css/ : dossier contenant les fichiers .css propres à Bootstrap, ainsi que la feuille de style du site.
+	    |   |
+	    |   |
+	    |   +---design.css
+	    |   		Feuille de style du site 
+	    |   
+	    +---js/ : dossier contenant les fichiers .js propres à Bootstrap, ainsi que les scripts javascript 
+	    |   |	 implémentés par notre groupe.
+	    |   |
+	    |   |
+	    |   +---script.js
+	    |   		Fichier contenant les scripts javascript implémentés par notre groupe.
+	    |   	
+	    +---fonts/ : dossier contenant les fichiers de police propres à bootstrap.
+	    |   	
+	    +---img/ : dossier contenant les images du site.
 
