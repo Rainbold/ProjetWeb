@@ -7,6 +7,19 @@ class Votes_model extends CI_Model
 
 	public function votes_add($id_user, $id_ask, $value)
 	{
+		$sql = "SELECT * FROM aa_votes, 
+				(SELECT id FROM aa_ask WHERE id_quest=(SELECT id_quest FROM aa_ask WHERE id=?)) aa_id_ask 
+				WHERE id_ask=aa_id_ask.id AND id_voting_user=?";
+		$data = array($id_ask, $id_user);
+		$query = $this->db->query($sql, $data);
+		if( $query->num_rows() > 0 )
+		{
+			$sql = "DELETE FROM ".$this->table_votes."
+					WHERE id_voting_user = ? AND id_ask IN (SELECT id FROM aa_ask WHERE id_quest=(SELECT id_quest FROM aa_ask WHERE id=?))";
+			$data = array($id_user, $id_ask);
+			$query = $this->db->query($sql, $data);
+		}
+
 		$sql = "SELECT value FROM ".$this->table_votes."
 				WHERE id_voting_user = ? AND id_ask = ?";
 		$data = array($id_user, $id_ask);

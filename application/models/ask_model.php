@@ -247,6 +247,8 @@ class Ask_model extends CI_Model
 		for( $i=0; $i<count($res); $i++ ) {
 			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+			$val = $this->votesManager->votes_get_by_ask($res[$i]->id);
+			$res[$i]->nb_votes = ($val) ? $val:0;
 		}
 		if( $query->result() != NULL )
 			return $query->result();
@@ -267,6 +269,8 @@ class Ask_model extends CI_Model
 		for( $i=0; $i<count($res); $i++ ) {
 			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
+			$val = $this->votesManager->votes_get_by_ask($res[$i]->id);
+			$res[$i]->nb_votes = ($val) ? $val:0;
 		}
 		if( $query->result() != NULL )
 			return $query->result();

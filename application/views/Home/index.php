@@ -62,7 +62,7 @@
 									if(isset($user_unanswered) && !empty($user_unanswered)) 
 									foreach($user_unanswered as $quest) { ?>
 									<tr>
-										<td class="votes">0<br/>Votes</td>
+										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
 										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
 										<td><a href="<?php echo site_url(array('index.php', 'ask', 'show', $quest->id)); ?>"><?php echo $quest->title; ?></a></td>
@@ -85,7 +85,7 @@
 									if(isset($user_quest) && !empty($user_quest))
 									foreach($user_quest as $quest) { ?>
 									<tr>
-										<td class="votes">0<br/>Votes</td>
+										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
 										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
 										<td><a href="<?php echo site_url(array('index.php', 'ask', 'show', $quest->id)); ?>"><?php echo $quest->title; ?></a></td>
@@ -124,7 +124,7 @@
 									if(isset($quest_latest) && !empty($quest_latest)) 
 									foreach($quest_latest as $quest) { ?>
 									<tr>
-										<td class="votes">0<br/>Votes</td>
+										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
 										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
 										<td><a href="<?php echo site_url(array('index.php', 'ask', 'show', $quest->id)); ?>"><?php echo $quest->title; ?></a></td>
@@ -147,7 +147,7 @@
 									if(isset($quest_pop_week) && !empty($quest_pop_week))
 									foreach($quest_pop_week as $quest) { ?>
 									<tr>
-										<td class="votes">0<br/>Votes</td>
+										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
 										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
 										<td><a href="<?php echo site_url(array('index.php', 'ask', 'show', $quest->id)); ?>"><?php echo $quest->title; ?></a></td>
@@ -170,7 +170,7 @@
 									if(isset($quest_pop_month) && !empty($quest_pop_month))
 									foreach($quest_pop_month as $quest) { ?>
 									<tr>
-										<td class="votes">0<br/>Votes</td>
+										<td class="votes"><?php echo $quest->nb_votes; ?><br/>Votes</td>
 										<td class="ans"><?php echo $quest->nb_ans; ?><br/>Answers</td>
 										<td class="views"><?php echo $quest->nb_views; ?><br/>Views</td>
 										<td><a href="<?php echo site_url(array('index.php', 'ask', 'show', $quest->id)); ?>"><?php echo $quest->title; ?></a></td>
