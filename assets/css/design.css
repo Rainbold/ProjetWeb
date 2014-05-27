@@ -410,24 +410,6 @@ div.arrows p
 	transition: color 0.3s;
 }
 
-/*
-div.panel-group 
-{
-	font-size: 0.5em;
-}
-
-div.panel-group a
-{
-	color: #ddd;
-	font-size: 0.8em;
-}
-
-div.panel
-{
-	background-color: #777;
-	color: #fff;
-}
-*/
 div.panel>div.panel-heading
 {
 	padding: 3px 10px;

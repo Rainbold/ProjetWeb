@@ -4,8 +4,9 @@ class Ask extends CI_Controller
 {
 	/*
 	 * The question/answers' class
-	 * 
-	 * 
+	 * Returns the questions/answers' list based on a given id
+	 * Displays, add, edit, delete questions/answers
+	 * Vote for a question
 	 */
 
 	// Var used to pass datas to the views
@@ -17,6 +18,7 @@ class Ask extends CI_Controller
 		parent::__construct();
 	}
 
+	// Returns the list of question based on a given page's number and on the category
 	public function list_quest($cat = 'latest', $page = 1)
 	{
 		// If the user is not connected, then he is redirected to the main page
@@ -25,19 +27,21 @@ class Ask extends CI_Controller
 			redirect(base_url());
 		else
 		{
-			// Loads the model for the aa_users table
-			// $this->load->model('user_model', 'userManager');
+			// Loads the model for the aa_model table
 			$this->load->model('ask_model', 'askManager');
 
-			$data_list = array(); 
+			$data_list = array();
+
+			// Number of questions per page 
 			$data_list['nb_quest_page'] = 10;
 			$data_list['cat'] = $cat;
 
 			$nb_quest = $this->askManager->ask_get_nb_questions();
+			// Number of pages
 			$data_list['nb_pages'] = ceil($nb_quest/$data_list['nb_quest_page']);
 			
 			$page--;
-			$offset = ($page >= 0 && $page+2 < $nb_quest) ? $page : 0;
+			$offset = ($page >= 0) ? $page : 0;
 			$data_list['page'] = $offset+1;
 			$offset *= $data_list['nb_quest_page'];
 
@@ -95,16 +99,21 @@ class Ask extends CI_Controller
 					$data_show['quest'] = $this->askManager->ask_get_quest($id);
 					$data_show['user'] = '';
 					$data_show['votes'] = '';
+
+					// If the question exists
 					if($data_show['quest']) {
 						$data_show['user'] = $this->userManager->user_get_info($data_show['quest']->author_id);
 						$data_show['votes'] = array('nb' => $this->votesManager->votes_get_by_ask($id), 'user_value' => $this->votesManager->votes_get_by_ask_user($id, $this->session->userdata('id')));
 						$data_show['answers'] = $this->askManager->ask_get_answers($id);
+						
+						// If there is answers
 						if($data_show['answers'])
 						{
 							foreach($data_show['answers'] as $answer)
 							{
 								$ans_ans = array( 'answers' => array(), 'users' => array(), 'votes' => array() );
 								$ans_ans['answers'] = $this->askManager->ask_get_answers($answer->id);
+								// If the original answers also has answers
 								if($ans_ans['answers'])
 									foreach ($ans_ans['answers'] as $key => $ans) {
 										$ans_ans['users'][$key] = $this->userManager->user_get_info($ans->author_id);
@@ -128,6 +137,7 @@ class Ask extends CI_Controller
 		}
 	}
 
+	// Adds a question or an answer into te database
 	public function add($id)
 	{
 		// The $id var is used to redirect the user to the answered question
@@ -148,9 +158,11 @@ class Ask extends CI_Controller
 
 			// Rules on the different datas submitted to avoid security exploits
 			$this->form_validation->set_rules('answer', '"Answer"', 'trim|required|encode_php_tags|xss_clean');
+			// If there is an empty id it means it is a new question, thus the title must be saved
 			if(empty($id))
 				$this->form_validation->set_rules('title', '"Title"', 'trim|required|encode_php_tags|xss_clean');
 
+			// If everything's fine, the data are stored
 			if( $this->form_validation->run() )
 			{
 				$answer = $this->input->post('answer');
@@ -171,6 +183,7 @@ class Ask extends CI_Controller
 		}
 	}
 
+	// Deletes a question or an answer from a database
 	public function del($id)
 	{
 		// If the user is not connected, then he is redirected to the main page
@@ -185,6 +198,8 @@ class Ask extends CI_Controller
 			$id = intval($id);
 
 			$quest = $this->askManager->ask_get_answer($id);
+
+			// If the user is truly the author then it is removed
 			if($quest->author_id == $this->session->userdata('id')) {
 				$this->askManager->ask_delete($quest->id);
 			}
@@ -193,6 +208,7 @@ class Ask extends CI_Controller
 		}
 	}
 
+	// Loads the view containing the form for a new question or answer
 	public function new_quest()
 	{
 		// If the user is not connected, then he is redirected to the main page
@@ -209,6 +225,7 @@ class Ask extends CI_Controller
 		}
 	}
 
+	// Loads the view containing the form used to edit a question or an answer
 	public function edit_quest($id)
 	{
 		// If the user is not connected, then he is redirected to the main page
@@ -233,6 +250,7 @@ class Ask extends CI_Controller
 		}
 	}
 
+	// Edits a question or an answer
 	public function edit($id)
 	{
 		// If the user is not connected, then he is redirected to the main page
@@ -279,6 +297,7 @@ class Ask extends CI_Controller
 		}
 	}
 
+	// Votes for a question
 	public function vote($id_ask, $value)
 	{
 		// If the user is not connected, then he is redirected to the main page

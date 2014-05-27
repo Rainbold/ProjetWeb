@@ -5,6 +5,7 @@ class Votes_model extends CI_Model
 	protected $table_votes = 'aa_votes';
 	protected $table_ask = 'aa_ask';
 
+	// Adds a vote for a question/answer
 	public function votes_add($id_user, $id_ask, $value)
 	{
 		$sql = "SELECT * FROM aa_votes, 
@@ -12,6 +13,8 @@ class Votes_model extends CI_Model
 				WHERE id_ask=aa_id_ask.id AND id_voting_user=?";
 		$data = array($id_ask, $id_user);
 		$query = $this->db->query($sql, $data);
+
+		// If already was vote for a question of the same level by this user, it is deleted
 		if( $query->num_rows() > 0 )
 		{
 			$sql = "DELETE FROM ".$this->table_votes."
@@ -26,11 +29,15 @@ class Votes_model extends CI_Model
 		$query = $this->db->query($sql, $data);
 		if( $query->num_rows() > 0 )
 		{
+			// If the previous vote is the same as the new one, the previous vote is erased
+			// and the new one is not taken into account
+			// It cancels this vote
 			if($query->row()->value == $value) {
 				$sql = "DELETE FROM ".$this->table_votes."
 						WHERE id_voting_user = ? AND id_ask = ?";
 				$data = array($id_user, $id_ask);
 			}
+			// Otherwise, it changes the original value to the opposite one
 			else {
 				$sql = "UPDATE ".$this->table_votes." SET value = ? 
 						WHERE id_voting_user = ? AND id_ask = ?";
@@ -48,6 +55,7 @@ class Votes_model extends CI_Model
 		}
 	}
 
+	// Sums all the vote of a given question/answer
 	public function votes_get_by_ask($id)
 	{
 		$sql = "SELECT SUM(value) as nb FROM ".$this->table_votes."
@@ -60,6 +68,22 @@ class Votes_model extends CI_Model
 			return 0;
 	}
 
+
+	// Counts all the vote of a given question/answer
+	public function votes_get_nb_by_ask($id)
+	{
+		$sql = "SELECT COUNT(value) as nb FROM ".$this->table_votes."
+				WHERE id_ask = ?";
+		$data = array($id);
+		$query = $this->db->query($sql, $data);
+		if($query->num_rows() > 0)
+			return $query->row()->nb;
+		else
+			return 0;
+	}
+
+
+	// Gets the value of a vote given by a user for a question or an answer
 	public function votes_get_by_ask_user($id_ask, $id_user)
 	{
 		$sql = "SELECT value FROM ".$this->table_votes."
@@ -72,6 +96,7 @@ class Votes_model extends CI_Model
 			return 0;
 	}
 
+	// Counts all the positives and negatives votes received by a user
 	public function votes_received($id_user)
 	{
 		$sql = "SELECT SUM(value) as nb FROM ".$this->table_votes." as votes, ".$this->table_ask." as ask
@@ -95,6 +120,7 @@ class Votes_model extends CI_Model
 		return array('up' => $u, 'down' => $d);
 	}
 
+	// Counts all the positives and negatives votes given by a user
 	public function votes_given($id_user)
 	{
 		$sql = "SELECT SUM(value) as nb FROM ".$this->table_votes."

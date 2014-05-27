@@ -4,6 +4,7 @@ class Views_model extends CI_Model
 {
 	protected $table_views = 'aa_views';
 
+	// Addsa view for a wuestion/answer
 	public function views_add($id_user, $id_quest)
 	{
 		$sql = "SELECT id FROM ".$this->table_views."

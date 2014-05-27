@@ -5,13 +5,7 @@ class Ask_model extends CI_Model
 	protected $table_ask = 'aa_ask';
 	protected $table_views = 'aa_views';
 
-	// Function used to sort the result of some queries by the number of views
-	protected function ask_sort_by_nb_views($a, $b)
-	{
-		if( $a->nb_views == $b->nb_views ){ return 0 ; }
-		return( $a->nb_views < $b->nb_views ) ? -1 : 1;
-	}
-
+	// Returns the number of questions
 	public function ask_get_nb_questions()
 	{
 		$sql = "SELECT COUNT(*) AS nb_quest
@@ -39,7 +33,7 @@ class Ask_model extends CI_Model
 		for( $i=0; $i<count($res); $i++ ) {
 			$res[$i]->nb_ans = $this->ask_get_nb_answers($res[$i]->id);
 			$res[$i]->nb_views = $this->ask_get_nb_views($res[$i]->id);
-			$val = $this->votesManager->votes_get_by_ask($res[$i]->id);
+			$val = $this->votesManager->votes_get_nb_by_ask($res[$i]->id);
 			$res[$i]->nb_votes = ($val) ? $val:0;
 		}
 		if( $query->result() )
