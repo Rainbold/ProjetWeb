@@ -183,7 +183,7 @@ class Ask extends CI_Controller
 		}
 	}
 
-	// Deletes a question or an answer from a database
+	// Deletes an answer from a database
 	public function del($id)
 	{
 		// If the user is not connected, then he is redirected to the main page
@@ -199,8 +199,8 @@ class Ask extends CI_Controller
 
 			$quest = $this->askManager->ask_get_answer($id);
 
-			// If the user is truly the author then it is removed
-			if($quest->author_id == $this->session->userdata('id')) {
+			// If the user is truly the author and if it is not a question then the answer is removed
+			if($quest->author_id == $this->session->userdata('id') && $this->askManager->ask_get_top_level_id_quest($id) != $id) {
 				$this->askManager->ask_delete($quest->id);
 			}
 			

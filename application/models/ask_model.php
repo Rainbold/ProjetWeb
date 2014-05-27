@@ -288,7 +288,7 @@ class Ask_model extends CI_Model
 		$query = $this->db->query($sql, $data);	
 	}
 
-	// Deletes the question/answer and its answers
+	// Deletes the given answer
 	public function ask_delete($id)
 	{
 		$ids = array($id);

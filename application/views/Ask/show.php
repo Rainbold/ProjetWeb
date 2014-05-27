@@ -31,7 +31,6 @@
 									<p><?php if(exists($quest)) echo date('d/m/Y H:i', $quest->date); ?></p>
 									<?php if($this->session->userdata('id') == $quest->author_id) { ?>
 										<a href="<?php echo site_url(array('index.php', 'ask', 'edit_quest', $quest->id)); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-										<a href="<?php echo site_url(array('index.php', 'ask', 'del', $quest->id)); ?>"><i class="glyphicon glyphicon-remove"></i></a>
 									<?php } ?>
 								</div>
 								<br/>
