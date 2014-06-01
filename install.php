@@ -6,7 +6,7 @@
 	 *
 	 */
 
-define(BASEPATH, ''); // Defined to gain access to database.php
+define('BASEPATH', ''); // Defined to gain access to database.php
 
 require_once('./application/config/database.php');
 
