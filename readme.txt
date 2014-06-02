@@ -25,6 +25,8 @@ Fonctionnalités
 	3. Ajout, édition de questions
 	4. Ajout, édition de réponses
 	5. Vote pour des réponses et des questions
+		On peut voter pour la question en tant que telle (elle est dissociée des réponses au niveau du vote),
+		mais on ne peut voter que pour une seule réponse.
 	6. Écran d'accueil
 		Lorsque l'utilisateur est connecté, il peut également voir les questions les plus récentes, les plus populaires de la semaine et les plus populaires du mois.
 		Il a également un récapitulatif des votes positifs et négatifs qu'il a donné et reçu.
