@@ -1,9 +1,18 @@
-Introduction
+﻿Introduction
 ------------
 
 	Projet de développement d'une application web de gestion de questions-réponses basée sur le modèle de StackOverflow.
 	Réalisé par Maxime Peterlin et Gabriel Vermeulen.
 	L'application a été développée à l'aide du framework HTML/CSS Bootstrap, du framework PHP CodeIgniter et de la bibliothèque JavaScript jQuery.
+
+
+Connexion
+---------
+	
+	Pour se connecter les identifiants sont les couples :
+		- max@max.max / maxmax ;
+		- bob@bob.bob / bobbob .
+
 
 
 Fonctionnalités

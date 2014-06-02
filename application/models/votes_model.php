@@ -15,7 +15,7 @@ class Votes_model extends CI_Model
 		$data = array($id_ask, $id_ask, $id_user);
 		$query = $this->db->query($sql, $data);
 
-		// If already was vote for a question of the same level by this user, it is deleted
+		// If there already was a vote for a question of the same level by this user, it is deleted
 		if( $query->num_rows() > 0 )
 		{
 			$sql = "DELETE FROM ".$this->table_votes."
@@ -30,9 +30,9 @@ class Votes_model extends CI_Model
 		$query = $this->db->query($sql, $data);
 		if( $query->num_rows() > 0 )
 		{
-			// If the previous vote is the same as the new one, the previous vote is erased
+			// If the previous vote is the same as the new one, the former is erased
 			// and the new one is not taken into account
-			// It cancels this vote
+			// It cancels the vote
 			if($query->row()->value == $value) {
 				$sql = "DELETE FROM ".$this->table_votes."
 						WHERE id_voting_user = ? AND id_ask = ?";
