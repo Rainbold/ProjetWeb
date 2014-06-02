@@ -295,7 +295,7 @@ class Ask_model extends CI_Model
 
 		$sql = "SELECT id
 				FROM ".$this->table_ask."
-				WHERE id_quest = ?";
+				WHERE id_quest = ? AND id_quest != -1";
 		$data = array($id);
 		$query = $this->db->query($sql, $data);
 

@@ -8,10 +8,11 @@ class Votes_model extends CI_Model
 	// Adds a vote for a question/answer
 	public function votes_add($id_user, $id_ask, $value)
 	{
+		// Fetches all the votes for answers of the same level
 		$sql = "SELECT * FROM aa_votes, 
 				(SELECT id FROM aa_ask WHERE id_quest=(SELECT id_quest FROM aa_ask WHERE id=?)) aa_id_ask 
-				WHERE id_ask=aa_id_ask.id AND id_voting_user=?";
-		$data = array($id_ask, $id_user);
+				WHERE id_ask=aa_id_ask.id AND aa_id_ask.id != ? AND id_voting_user=?";
+		$data = array($id_ask, $id_ask, $id_user);
 		$query = $this->db->query($sql, $data);
 
 		// If already was vote for a question of the same level by this user, it is deleted
